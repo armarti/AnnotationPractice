@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'scala'
     id 'idea'
     id 'org.jetbrains.kotlin.jvm'
 }
@@ -19,12 +18,8 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinJvmVersion}"
     compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinJvmVersion}"
-    compile "org.scala-lang:scala-library:${scalaVersion}"
-    compile "org.scala-lang:scala-compiler:${scalaVersion}"
-    compile "org.scala-lang:scala-reflect:${scalaVersion}"
     testCompile "org.jetbrains.kotlin:kotlin-test:${kotlinJvmVersion}"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotlinJvmVersion}"
-    testCompile "org.scalatest:scalatest_${scalaVersion.tokenize('.')[0..-2].join('.')}:${scalaTestVersion}"
     testCompile "junit:junit:${junitVersion}"
 }
 
@@ -37,7 +32,6 @@ def mkSrcdirs(name) {
 }
 
 mkSrcdirs 'kotlin'
-mkSrcdirs 'scala'
 mkSrcdirs 'java'
 
 // https://stackoverflow.com/a/35632444/4106215
