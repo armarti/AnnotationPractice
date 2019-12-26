@@ -1,2 +1,10 @@
-rootProject.name = 'AnnotationPractice'
+pluginManagement {
+    plugins {
+        id 'java'
+        id 'scala'
+        id 'idea'
+        id "org.jetbrains.kotlin.jvm" version "${kotlinJvmVersion}"
+    }
+}
 
+rootProject.name = "${projectName}"

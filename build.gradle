@@ -1,16 +1,49 @@
 plugins {
     id 'java'
+    id 'scala'
+    id 'idea'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group "${projectGroup}"
+version "${projectVersion}"
 
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinJvmVersion}"
+    compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinJvmVersion}"
+    compile "org.scala-lang:scala-library:${scalaVersion}"
+    compile "org.scala-lang:scala-compiler:${scalaVersion}"
+    compile "org.scala-lang:scala-reflect:${scalaVersion}"
+    testCompile "org.jetbrains.kotlin:kotlin-test:${kotlinJvmVersion}"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:${kotlinJvmVersion}"
+    testCompile "org.scalatest:scalatest_${scalaVersion.tokenize('.')[0..-2].join('.')}:${scalaTestVersion}"
+    testCompile "junit:junit:${junitVersion}"
+}
+
+sourceSets.main.java.srcDirs
+def mkSrcdirs(name) {
+    def gs = "$group".replace('.', File.separator)
+    sourceSets.each {
+        "src/${it.name}/$name/$gs".with { mkdir it; [ it ] }
+    }
+}
+
+mkSrcdirs 'kotlin'
+mkSrcdirs 'scala'
+mkSrcdirs 'java'
+
+// https://stackoverflow.com/a/35632444/4106215
+task repl(type: JavaExec) {
+    main = 'scala.tools.nsc.MainGenericRunner'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput System.in
+    args '-usejavacp'
 }

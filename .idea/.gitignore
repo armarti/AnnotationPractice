@@ -2,4 +2,9 @@
 !.gitignore
 !*.iml
 !runConfigurations/*
+!runConfigurations/
+!runConfigurations
 !modules.xml
+!modules/*
+!modules/
+!modules
